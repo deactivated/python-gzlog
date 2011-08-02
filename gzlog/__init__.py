@@ -18,9 +18,9 @@ _z_pack = _z_struct.pack
 _z_unpack = _z_struct.unpack
 
 
-class GZlog(object):
+class GZLog(object):
     """
-    GZlog is a nearly trivial object for logging binary strings to disk.
+    GZLog is a nearly trivial object for logging binary strings to disk.
 
     Each entry is stored as the compressed length in big-endian format,
     followed by the compressed data, followed again by the compressed length.
@@ -30,7 +30,7 @@ class GZlog(object):
 
     def __init__(self, fn):
         """
-        Initialize a GZlog object with a given base filename.
+        Initialize a GZLog object with a given base filename.
 
         Rotated log files will have a file name "<filename>.###".
         """
