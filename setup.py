@@ -13,7 +13,7 @@ def read(fname):
 
 
 setup(name='gzlog',
-      version="0.1",
+      version="0.2",
       author="Mike Spindel",
       author_email="mike@spindel.is",
       license="MIT",
