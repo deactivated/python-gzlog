@@ -95,7 +95,7 @@ class GZLog(object):
             try:
                 next_id = max(int(ext_re.findall(fn)[0]) for fn in
                               glob.glob("%s.*[0-9]" % self.name)
-                              if ext_re.match(fn)) + 1
+                              if ext_re.search(fn)) + 1
             except ValueError:
                 next_id = 1
             next_fn = "%s.%03d" % (self.name, next_id)

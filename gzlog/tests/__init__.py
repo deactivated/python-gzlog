@@ -46,3 +46,36 @@ class GZLogTest(unittest.TestCase):
         self.assertEqual(read_count, 10)
 
         temp.name = zl.name
+
+    def test_rotation_names(self):
+        def touch(fn):
+            open(fn, "w").close()
+
+        def check_rotate_name(name):
+            zl = gzlog.GZLog(temp.name)
+            zl.rotate()
+            self.assertEqual(zl.name, "%s.%s" % (temp.name, name))
+            self.assertTrue(os.path.exists(zl.name))
+
+        temp = tempfile.NamedTemporaryFile()
+
+        # Basic rotation
+        check_rotate_name("001")
+        check_rotate_name("002")
+
+        # Rotation with spaces
+        touch("%s.050" % temp.name)
+        check_rotate_name("051")
+
+        # Rotation outside of the padded range.
+        touch("%s.999" % temp.name)
+        check_rotate_name("1000")
+        check_rotate_name("1001")
+
+        # Rotation in presence of weird file names
+        touch("%s.999.z" % temp.name)
+        touch("%s.999." % temp.name)
+        touch("%s.9a9999" % temp.name)
+        check_rotate_name("1002")
+
+        touch(temp.name)
